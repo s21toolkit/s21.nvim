@@ -1,12 +1,18 @@
+local config = require('s21.config')
+
+local preview = config.task.preview
+if (type(preview) == 'function') then
+  preview()
+  return
+end
+
 local ok, overseer = pcall(require, 'overseer')
-
-if not ok then return end
-
-local api = require('api')
+if not ok or not preview then return end
 
 overseer.register_template({
   name = 'preview-start',
   builder = function()
+    local api = require('s21.api')
     return {
       name = 'vivify-server-start',
       cmd = (not api.i3.window_title_contains(api:project_dir_name())) and [[

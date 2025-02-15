@@ -2,7 +2,7 @@ local M = {}
 
 local psqlexecbuf = require('s21.modules.sql.psqlexec')
 local test = require('s21.modules.sql.test')
-local api = require('s21').api
+local api = require('s21.api')
 
 function M.get_current_day()
   return tonumber(api:project_dir_name():match('Day(%d+)'))

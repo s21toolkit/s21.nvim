@@ -1,11 +1,11 @@
 local M = {}
 
-function M:setup(o)
+function M.setup(o)
   local config = require('s21.modules.sql.config')
-  config:setup(o)
+  config.setup(o)
 
   require('s21.modules.sql.docker')
-  require('s21.modules.sql.init-folders')
+  if config.init_folders then require('s21.modules.sql.folders') end
   require('s21.modules.sql.commands')
 
   M.formatexpr = require('s21.modules.sql.formatter')
@@ -21,8 +21,6 @@ function M:setup(o)
       vim.keymap.set('n', config.keymap.nextex, function() ex.advance(1, true) end, opts)
     end,
   })
-
-  vim.cmd('edit')
 
   local ok, overseer = pcall(require, 'overseer')
   if ok then overseer.run_template({ name = 'docker up', }) end

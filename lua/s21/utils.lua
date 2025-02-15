@@ -7,7 +7,7 @@ function M.set_buf_fastclose(buf, keys)
   local kkeys = {
     '<cr>',
     '<esc>',
-    keys and unpack(keys) or nil
+    keys and unpack(keys) or nil,
   }
 
   for i = 1, #kkeys do
@@ -27,6 +27,19 @@ function M.set_buf_delete_on_leave(buf)
     callback = function(a)
       vim.api.nvim_buf_delete(a.buf, { force = true, })
     end,
+  })
+end
+
+function M.setup_config(self)
+  return setmetatable(self, {
+    __index = {
+      setup = function(opts)
+        local newconf = vim.tbl_deep_extend('force', self, opts or {})
+        for k, v in pairs(newconf) do
+          self[k] = v
+        end
+      end,
+    },
   })
 end
 

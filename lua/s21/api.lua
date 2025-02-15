@@ -2,12 +2,12 @@ local M = { i3 = {}, }
 
 ---@return string
 function M.project_root()
-  return vim.fs.find('.git', { upward = true, })[1]
+  return vim.fs.dirname(vim.fs.find('.git', { upward = true, })[1])
 end
 
 ---@return string
 function M:project_dir_name()
-  return vim.fs.basename(vim.fs.dirname(self:project_root()))
+  return vim.fs.basename(self:project_root())
 end
 
 ---@return string
@@ -23,9 +23,14 @@ function M.project_web_url()
   )
 end
 
+--- Always return false when either jq or i3-msg is not supplied
 ---@param term string
 ---@return boolean
 function M.i3.window_title_contains(term)
+  if not vim.fn.executable('jq') or not vim.fn.executable('i3-msg') then
+    return false
+  end
+
   local jq = vim.system({ 'jq', '-r', '.nodes | .. | objects | .name? // empty', }, {
     stdin = vim.system({ 'i3-msg', '-t', 'get_tree', }):wait().stdout,
   }):wait().stdout

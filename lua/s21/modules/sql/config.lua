@@ -1,6 +1,8 @@
 local module_path = vim.fs.dirname(debug.getinfo(1, 'S').source:sub(2))
+local utils = require('s21.utils')
 
 local M = {
+  init_folders = true,
   paths = {
     assets = vim.fs.joinpath(module_path, 'assets'),
     module = module_path,
@@ -18,11 +20,4 @@ local M = {
   },
 }
 
-function M:setup(opts)
-  local newconf = vim.tbl_deep_extend('force', M, opts or {})
-  for k, v in pairs(newconf) do
-    M[k] = v
-  end
-end
-
-return M
+return utils.setup_config(M)
