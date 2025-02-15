@@ -42,7 +42,8 @@ return {
       keymap = {
         psqlexec = '<leader>p', -- execute sql
         prevex = ',', -- go to previous excercise (no exec)
-        nextex = '.', -- go to next excercise (exec with tests if test.sql found in the same folder)
+        nextex = '.', -- go to next exercise (exec with tests if test.sql found in the same folder)
+        test = '<leader>\'', -- run tests for current exercise if exists
       }
     },
   },

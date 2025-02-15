@@ -11,6 +11,7 @@ function M.setup(o)
   M.formatexpr = require('s21.modules.sql.formatter')
   local psqlexecbuf = require('s21.modules.sql.psqlexec')
   local ex = require('s21.modules.sql.ex')
+  local test = require('s21.modules.sql.test')
 
   vim.api.nvim_create_autocmd({ 'BufRead', 'FileType', }, {
     pattern = '*.sql',
@@ -19,6 +20,7 @@ function M.setup(o)
       vim.keymap.set('n', config.keymap.psqlexec, function() psqlexecbuf({}) end, opts)
       vim.keymap.set('n', config.keymap.prevex, function() ex.advance(-1) end, opts)
       vim.keymap.set('n', config.keymap.nextex, function() ex.advance(1, true) end, opts)
+      vim.keymap.set('n', config.keymap.test, function() test.run() end, opts)
     end,
   })
 

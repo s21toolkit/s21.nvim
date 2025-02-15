@@ -17,6 +17,7 @@ end
 
 function M.run()
   if not M.exists() then return end
+  M.close_win()
 
   vim.cmd('botright vsplit ' .. M.get_name())
   winid = vim.api.nvim_get_current_win()

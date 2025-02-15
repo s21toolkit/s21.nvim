@@ -17,6 +17,7 @@ local M = {
     psqlexec = '<leader>p',
     prevex = ',',
     nextex = '.',
+    test = '<leader>\'',
   },
 }
 
