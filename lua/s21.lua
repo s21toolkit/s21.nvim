@@ -20,7 +20,7 @@ function M.setup(o)
   end
 
   local ok, _ = pcall(require, 'overseer')
-  if not ok then require('s21.tasks') end
+  if ok then require('s21.tasks') end
 end
 
 return M
