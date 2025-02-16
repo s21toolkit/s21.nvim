@@ -16,7 +16,7 @@ overseer.register_template({
     return {
       name = 'vivify-server-start',
       cmd = (not api.i3.window_title_contains(api:project_dir_name())) and [[
-      firefox && sleep .5 && i3-msg resize set 1400 px > /dev/null && vivify-server ../README*.md
+      firefox --new-window && sleep .5 && i3-msg resize set 1400 px > /dev/null && vivify-server ../README*.md
     ]] or 'echo Already opened',
       components = {
         'unique',
