@@ -13,16 +13,19 @@ function M.setup(o)
   local ex = require('s21.modules.sql.ex')
   local test = require('s21.modules.sql.test')
 
-  vim.api.nvim_create_autocmd({ 'BufRead', 'FileType', }, {
-    pattern = '*.sql',
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'sql',
     callback = function(a)
       local opts = { buffer = a.buf, }
       vim.keymap.set('n', config.keymap.psqlexec, function() psqlexecbuf({}) end, opts)
+      vim.keymap.set('n', config.keymap.testexec, function() test.run() end, opts)
+      vim.keymap.set('n', config.keymap.nextexec, function() ex.advance(1, true) end, opts)
       vim.keymap.set('n', config.keymap.prevex, function() ex.advance(-1) end, opts)
-      vim.keymap.set('n', config.keymap.nextex, function() ex.advance(1, true) end, opts)
-      vim.keymap.set('n', config.keymap.test, function() test.run() end, opts)
+      vim.keymap.set('n', config.keymap.nextex, function() ex.advance(1) end, opts)
     end,
   })
+
+  vim.api.nvim_exec_autocmds('FileType', {})
 
   local ok, overseer = pcall(require, 'overseer')
   if ok then overseer.run_template({ name = 'docker up', }) end

@@ -37,11 +37,11 @@ return function(cfg)
   local buf = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(h.stdout, '\n'))
 
-  vim.keymap.set('n', '.', function()
+  vim.keymap.set('n', config.keymap.nextexec, function()
     require('s21.modules.sql.ex').advance(1, true)
   end, { buffer = buf, })
 
-  utils.set_buf_fastclose(buf, { ',' })
+  utils.set_buf_fastclose(buf, { config.keymap.prevex })
   utils.set_buf_nomodify(buf)
   utils.set_buf_delete_on_leave(buf)
 

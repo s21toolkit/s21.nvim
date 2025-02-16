@@ -6,7 +6,7 @@
 ```lua
 return {
   's21toolkit/s21.nvim',
-  event = 'VimEnter',
+  event = 'VeryLazy', -- Actual loading handled in cond
   dependencies = {
     -- Required for sql docker control absence of this disable automatic postgres management
     'stevearc/overseer.nvim',
@@ -18,7 +18,7 @@ return {
   opts = {
     switch = true, -- Automatically switch to develop branch
     task = {
-      -- boolean for controlling built in behaivor (relies on overseer)
+      -- boolean for controlling built in behaivor (relies on overseer, jq, firefox, i3)
       -- preview = false,
       -- function for custom opener
       preview = function ()
@@ -34,16 +34,18 @@ return {
       init = true,
       -- Settings for docker and psql requires docker and overseer
       postgres = {
-        port = 5432,
+        password = 'somepassword',
         user = 'someuser',
-        password = 'somepassword'
+        db = 'school21'
+        port = 5432,
       },
       -- Control mapping for psql cli
       keymap = {
         psqlexec = '<leader>p', -- execute sql
+        testexec = '<leader>\'', -- run tests for current exercise if exists (test.sql)
+        nextexec = '\'', -- go to next exercise (exec with tests if test.sql found in the same folder)
         prevex = ',', -- go to previous excercise (no exec)
-        nextex = '.', -- go to next exercise (exec with tests if test.sql found in the same folder)
-        test = '<leader>\'', -- run tests for current exercise if exists
+        nextex = '.', -- go to next exercise (no exec)
       }
     },
   },

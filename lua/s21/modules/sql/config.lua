@@ -2,7 +2,7 @@ local module_path = vim.fs.dirname(debug.getinfo(1, 'S').source:sub(2))
 local utils = require('s21.utils')
 
 local M = {
-  init_folders = true,
+  init = true,
   paths = {
     assets = vim.fs.joinpath(module_path, 'assets'),
     module = module_path,
@@ -15,9 +15,10 @@ local M = {
   },
   keymap = {
     psqlexec = '<leader>p',
+    testexec = '<leader>\'',
+    nextexec = '\'',
     prevex = ',',
     nextex = '.',
-    test = '<leader>\'',
   },
 }
 
