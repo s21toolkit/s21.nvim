@@ -19,7 +19,8 @@ function M.setup(o)
     require('s21.modules.sql').setup(o.sql)
   end
 
-  require('s21.tasks')
+  local ok, _ = pcall(require, 'overseer')
+  if not ok then require('s21.tasks') end
 end
 
 return M

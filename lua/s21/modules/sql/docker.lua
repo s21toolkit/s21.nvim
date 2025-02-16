@@ -1,6 +1,4 @@
-local ok, overseer = pcall(require, 'overseer')
-if not ok then return end
-
+local overseer = require('overseer')
 local config = require('s21.modules.sql.config')
 
 local docker = {

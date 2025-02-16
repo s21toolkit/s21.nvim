@@ -4,8 +4,7 @@ function M.setup(o)
   local config = require('s21.modules.sql.config')
   config.setup(o)
 
-  require('s21.modules.sql.docker')
-  if config.init_folders then require('s21.modules.sql.folders') end
+  if config.init then require('s21.modules.sql.folders') end
   require('s21.modules.sql.commands')
 
   M.formatexpr = require('s21.modules.sql.formatter')
@@ -28,7 +27,10 @@ function M.setup(o)
   vim.api.nvim_exec_autocmds('FileType', {})
 
   local ok, overseer = pcall(require, 'overseer')
-  if ok then overseer.run_template({ name = 'docker up', }) end
+  if ok then
+    require('s21.modules.sql.docker')
+    overseer.run_template({ name = 'docker up', })
+  end
 end
 
 return M
