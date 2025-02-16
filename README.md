@@ -63,6 +63,9 @@ return {
     sql = {
       -- Угадывать ли количество упражнений в дне создавая структуру ex0X/day0Y_ex0X.sql
       init = true,
+      -- Использовать sql-formatter из mason репозитория если mason
+      -- не установлен форматирования не будет
+      format = false,
       -- Настройки контейнера постгреса
       postgres = {
         password = 'somepassword',

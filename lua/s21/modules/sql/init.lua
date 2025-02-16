@@ -4,10 +4,10 @@ function M.setup(o)
   local config = require('s21.modules.sql.config')
   config.setup(o)
 
+  if config.format then require('s21.modules.sql.formatter') end
   if config.init then require('s21.modules.sql.folders') end
   require('s21.modules.sql.commands')
 
-  M.formatexpr = require('s21.modules.sql.formatter')
   local psqlexecbuf = require('s21.modules.sql.psqlexec')
   local ex = require('s21.modules.sql.ex')
   local test = require('s21.modules.sql.test')

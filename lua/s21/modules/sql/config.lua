@@ -3,6 +3,7 @@ local utils = require('s21.utils')
 
 local M = {
   init = true,
+  format = false,
   paths = {
     assets = vim.fs.joinpath(module_path, 'assets'),
     module = module_path,
