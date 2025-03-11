@@ -54,7 +54,7 @@ return {
       -- Или же определить кастомный опенер прямо тут
       preview = function ()
         local api = require('s21.api')
-        if not api.i3.window_title_contains(api:project_dir_name()) then
+        if not api.i3.window_title_contains(api:project_dir_name()--[[, { plain = true, }--]]) then
           -- https://github.com/jannis-baum/Vivify
           vim.system({ 'sh', '-c', 'viv ' .. vim.fs.joinpath(api:project_root(), 'README*.md') })
         end

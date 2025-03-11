@@ -23,12 +23,22 @@ function M.project_web_url()
   )
 end
 
+---@class WindowTitleContainsOptions
+---@field plain boolean | nil treat term as palin text or not
+
 --- Always return false when either jq or i3-msg is not supplied
 ---@param term string
+---@param o WindowTitleContainsOptions | nil
 ---@return boolean
-function M.i3.window_title_contains(term)
+function M.i3.window_title_contains(term, o)
   if not vim.fn.executable('jq') or not vim.fn.executable('i3-msg') then
     return false
+  end
+
+  if o == nil then
+    o = { plain = true }
+  elseif o.plain == nil then
+    o.plain = true
   end
 
   local jq = vim.system({ 'jq', '-r', '.nodes | .. | objects | .name? // empty', }, {
@@ -42,7 +52,7 @@ function M.i3.window_title_contains(term)
 
   local lines = vim.split(jq, '\n', { plain = true, })
   for i = 1, #lines do
-    local s, _ = lines[i]:find(term, 0, true)
+    local s, _ = lines[i]:find(term, 0, o.plain)
     if (s == 1) then
       return true
     end
