@@ -12,7 +12,7 @@ function M.setup(o)
   end, {})
 
   if config.switch == true and vim.system({ 'git', 'switch', 'develop', }):wait().code ~= 0 then
-    vim.system({ 'git', 'switch', '-b', 'develop', }):wait()
+    vim.system({ 'git', 'switch', '-c', 'develop', }):wait()
   end
 
   if vim.fn.getcwd():match('/SQL_beginner.Day%d-%d') then
